@@ -1,0 +1,548 @@
+\RequirePackage{lipsum,zhlipsum}
+\RequirePackage{pifont,fontawesome}
+\RequirePackage{multicol,etoolbox}
+\RequirePackage[abspath]{currfile}
+
+\edef\cfDir{\currfiledir}
+\newcommand{\updatePath}{\edef\cfDir{\currfiledir}}
+\newcommand{\rpath}[1]{\cfDir #1}
+\newcommand{\rinput}[1]{%
+\updatePath
+\input{\rpath{#1}}
+}
+\newcommand{\rinclude}[1]{%
+\updatePath
+\include{\rpath{#1}}
+}
+\newcommand{\rbibliography}[1]{%
+\updatePath
+\bibliography{\rpath{#1}}
+}
+
+\RequirePackage{eso-pic,tikz}
+\usetikzlibrary{positioning}
+\RequirePackage{wrapfig}
+\RequirePackage{mathptmx,amsmath,float,floatflt,filecontents}
+\RequirePackage[toc,title,titletoc]{appendix}
+\RequirePackage{multirow,longtable,tabularx,diagbox}
+\RequirePackage{ifxetex,ifluatex,hologo}
+\RequirePackage{setspace,listings}
+\RequirePackage[
+    a4paper,
+	top=1cm,
+	bottom=1cm,
+	left=2cm,
+	right=2cm,
+    %   twoside,
+    %   bindingoffset=1cm,
+    %   asymmetric,
+	headheight=0.5cm,
+	headsep=0.5cm,
+	footskip=1.0cm,
+	includehead=true,
+	includefoot=true]{geometry}
+
+\RequirePackage{fancyhdr,lastpage}
+
+\fancypagestyle{fancyplain}{}
+%
+\fancypagestyle{coverpage}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+%
+\fancypagestyle{backcover}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+%
+\fancypagestyle{chapterpage}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[LE]{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[above,yshift=-3.5pt] at (-2em,0) {\bf\sffamily\thepage};
+    \end{tikzpicture}%
+  }
+  \fancyfoot[RO]{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[above,yshift=-3.5pt] at (2em,0) {\bf\sffamily\thepage};
+    \end{tikzpicture}%
+  }
+}
+%
+\fancypagestyle{textpage}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyhead[LE]{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[above,yshift=-3.5pt] at (-2em,0) {\bf\sffamily\thepage};
+    \end{tikzpicture}%
+    {\sffamily\rightmark}%
+  }
+  \fancyhead[RO]{%
+    {\sffamily\leftmark}%
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[above,yshift=-3.5pt] at (2em,0) {\bf\sffamily\thepage};
+    \end{tikzpicture}%
+  }
+}
+
+\pagestyle{textpage}
+
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}{}}
+
+
+\RequirePackage[explicit]{titlesec}
+\RequirePackage{titletoc,tocloft}
+\RequirePackage{ifthen}
+
+\titleformat{name=\subsection}
+{%format
+  \sf\sffamily\large% 
+}
+{%label
+  \thesubsection
+}
+{%sep
+1em
+}
+{%before-code
+#1
+}
+[%after-code
+]
+
+\assignpagestyle{\chapter}{chapterpage}
+\titleformat{name=\chapter}[display]
+{%format
+\bfseries\sffamily% 
+% \bfseries% \Huge\filleft
+}
+{%label
+  \ifthenelse{\isodd{\thepage}}{\filleft}{\filright}
+  \ifthenelse{\isodd{\thepage}}{%
+    \rotatebox[origin=c]{90}{%
+      \normalfont\color{black}\Large%
+      \ifxetex
+        {\addfontfeature{LetterSpace=20.0}\textsc\chaptertitlename}%
+      \else
+        \textls[120]{\textsc{\chaptertitlename}}%
+      \fi
+    }\hspace{10pt}%
+  }{}
+  {\setlength\fboxsep{0pt}%
+    \colorbox{\@chapterlabelcolor}{%
+      \parbox[c][0.1\paperheight][c]{0.1\paperwidth}{%
+        \centering\color{white}
+        \fontsize{40}{40}\selectfont
+        \thechapter
+      }%
+    }
+  }%
+  \ifthenelse{\isodd{\thepage}}{}{%
+    \hspace{10pt}%
+    \rotatebox[origin=c]{-90}{%
+      \normalfont\color{black}\Large%
+      \ifxetex
+        {\addfontfeature{LetterSpace=20.0}\textsc\chaptertitlename}%
+      \else
+        \textls[120]{\textsc{\chaptertitlename}}%
+      \fi
+    }
+  }
+}
+{%sep
+0pt
+}
+{%before-code
+}
+[%after-code
+  \filright
+  {\color{\@titlecolor}\Huge #1}\\
+  {\color{\@chapterlabelcolor}\rule{0.618\textwidth}{2pt}}
+]
+%
+\titlespacing{name=\chapter}{0pt}{0\paperheight}{20pt}
+
+\newcommand{\existchinese}[1]{%
+\ifbool{#1}{%
+  \renewcommand{\contentsname}{\bfseries\sffamily {目 \quad 录}}
+  \ctexset{%
+    punct=quanjiao,
+    space=auto,
+    autoindent=true,
+    bibname = {文\quad 献},
+    appendixname = {Appendix},
+    %
+    part={%
+      name={第,部分},
+      number=\thepart,
+    },
+    chapter={%
+      name={第,章},
+      number=\thechapter,
+    },
+    section={%
+      name={},
+      number=\thesection,
+    },
+    appendix={%
+      name={\appendixname\space},
+      number=\Alph{chapter},
+    }
+  }
+  \xeCJKsetup{%
+    CJKmath=true,
+    AutoFallBack=true,
+    AutoFakeBold=true,
+    AutoFakeSlant=true
+  }
+  
+  % Set Chinese Fonts
+  \setCJKmainfont{FZShuSong-Z01S}
+  \setCJKsansfont{FZYouHJ VF WT W H 1}
+  \setCJKmonofont{FZFangSong-Z02S}
+  
+  % \setCJKfamilyfont{boldsong}{FZShuSong-Z01S}
+  % \setCJKmainfont{Source Han Serif CN}
+  % \setCJKsansfont{Source Han Sans SC}
+  % \setCJKmonofont{Source Han Sans SC}
+  % \setCJKfamilyfont{boldsong}{Source Han Serif CN Heavy}
+  }{%
+    \renewcommand{\cftchappresnum}{Chapter\ } 
+    \renewcommand{\cftchapnumwidth}{6.5em}
+  }
+}
+
+\RequirePackage{flushend,cite,url,xcolor}
+\RequirePackage{hyperref,bookmark}
+\hypersetup{%
+  % pdftitle={pdf-title},
+  % pdfsubject={pdf-description},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=2,
+  pdfstartview=Fit,
+  pdfpagemode=UseOutlines,
+  pdfpagelayout=OneColumn,
+  %
+  breaklinks=true,
+  colorlinks,
+  linkbordercolor=white,
+  pdfborder={0 0 0},
+  citebordercolor=white,
+  bookmarksopen=false,
+  linkcolor={green!80!black},
+  citecolor={red!70!black},
+  urlcolor={blue!70!black}
+}
+\ifxetex % xelatex
+\else % pdflatex
+  \RequirePackage{breakurl}
+  \RequirePackage[kerning,spacing]{microtype}
+\fi
+
+
+\definecolor{main-color}{HTML}{f9b70e}
+\definecolor{title-color}{HTML}{cf211e}
+
+\newbool{fullcoverpage}
+\boolfalse{fullcoverpage}
+
+\newcommand{\@firstauthor}{First Author}
+\newcommand{\firstauthor}[1]{\renewcommand{\@firstauthor}{#1}}
+
+\newcommand{\@subtitle}{}
+\newcommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
+
+\newcommand{\@subject}{}
+\newcommand{\subject}[1]{\renewcommand{\@subject}{#1}}
+
+\newcommand{\@coverbackground}{}
+\newcommand{\coverbackground}[1]{\renewcommand{\@coverbackground}{#1}}
+
+\newcommand{\@coverbackgroundopacity}{0.618}
+\newcommand{\coverbackgroundopacity}[1]{\renewcommand{\@coverbackgroundopacity}{#1}}
+
+\newcommand{\@mainlogo}{}
+\newcommand{\mainlogo}[1]{\renewcommand{\@mainlogo}{#1}}
+
+\newcommand{\@makemainlogo}{%
+  \begin{raggedright}
+    \begin{tabular}[t]{c}
+      \@mainlogo
+    \end{tabular}\par
+  \end{raggedright}
+}
+
+\newcommand{\@sponsor}{}
+\newcommand{\sponsor}[1]{\renewcommand{\@sponsor}{#1}}
+
+\newcommand{\@sponsorlogo}{}
+\newcommand{\sponsorlogo}[1]{\renewcommand{\@sponsorlogo}{#1}}
+
+\newcommand{\@sponsors}{}
+\newcommand{\sponsors}[1]{\renewcommand{\@sponsors}{#1}}
+
+\newcommand{\sponsorsep}{%
+  \end{tabular}%
+  \hskip 1em
+  \begin{tabular}[t]{c}
+}
+\newcommand{\@makesponsors}{%
+  \begin{raggedright}
+    \begin{tabular}[t]{c}
+      \@sponsors
+    \end{tabular}\par
+  \end{raggedright}
+}
+
+\newcommand{\@contact}{%
+  {\Large\bf Contact}
+  \vskip 1em
+  \begin{tabular}{cl}
+    \faInstitution & Institution Name\\
+    \faGlobe       & www.globe.cn\\
+    \faGithub      & https://github.com/nickname\\
+    \faEnvelope    & yourname@domain.com\\
+    \faPhone       & +852 12 34 56 78\\
+    \faMapMarker   & 29 Jiangjun Ave., Nanjing 211106, Jiangsu, China.
+  \end{tabular}
+}
+\newcommand{\contact}[1]{\renewcommand{\@contact}{#1}}
+
+\newcommand{\@covercolor}{main-color}
+\newcommand{\covercolor}[1]{\renewcommand{\@covercolor}{#1}}
+
+\newcommand{\@chapterlabelcolor}{main-color}
+\newcommand{\chapterlabelcolor}[1]{\renewcommand{\@chapterlabelcolor}{#1}}
+
+\newcommand{\@titlecolor}{title-color}
+\newcommand{\titlecolor}[1]{\renewcommand{\@titlecolor}{#1}}
+
+\newcommand{\sponsorbiography}[3][0.055\paperheight]{%
+  {\raggedright
+  \begin{minipage}[c][#1][b]{\linewidth}
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[anchor=south west,xshift=-3.5pt, yshift=1pt] at (0,0) {\includegraphics[height=0.05\paperheight,clip,keepaspectratio]{#2}};
+      \draw (0,0) -- (\linewidth,0);
+    \end{tikzpicture}
+  \end{minipage}
+  \vskip 1em}
+  #3
+}
+\newcommand{\authorbiography}[3][0.2\textheight]{%
+  \noindent
+  {\pgfsetfillopacity{0}\colorbox{blue}{%
+    \begin{minipage}[t][#1][t]{0.2\textwidth}{%
+      \pgfsetfillopacity{1}
+      \includegraphics[width=\textwidth,clip,keepaspectratio]{#2}}
+    \end{minipage}}}
+  \hfill
+  {\pgfsetfillopacity{0}\colorbox{blue}{
+    \begin{minipage}[t][#1][t]{0.75\textwidth}{% 
+      \pgfsetfillopacity{1}#3}
+    \end{minipage}}}
+}
+
+\renewcommand{\contentsname}{\bfseries\sffamily {Contents}}
+\renewcommand{\bibname}{\bfseries\sffamily {References}}
+\newcommand{\hrefcolor}[1]{\hypersetup{linkcolor=#1}\color{#1}}
+\renewcommand{\cftchapfont}{\hrefcolor{\@titlecolor}\large\bfseries\sffamily}
+
+\if@titlepage
+  \def\maketitle{%
+  
+  \let\footnotesize\small
+  \let\footnoterule\relax
+  \let \footnote \thanks
+  
+  \begin{titlepage}
+    \thispagestyle{coverpage}%
+  
+    \ifcsempty{@coverbackground}{}{%
+      \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+        \node[above=\ifbool{fullcoverpage}{0}{0.25}\paperheight,inner sep=0,opacity=\@coverbackgroundopacity] at (current page.south) {\includegraphics[height=\ifbool{fullcoverpage}{1}{0.75}\paperheight]{\@coverbackground}};
+      \end{tikzpicture}
+    }
+  
+    \ifcsempty{@sponsors}{}{%
+      \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+        \node[below=0.85\paperheight,fill=black,minimum width={\paperwidth},inner ysep=0.01\paperheight,opacity=0,text opacity=1] at (current page.north) {
+          \begin{minipage}{0.9\paperwidth}
+            \@makesponsors
+          \end{minipage}};
+      \end{tikzpicture}
+    }
+  
+    \ifcsempty{@mainlogo}{}{%
+      \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+        \node[below=0.15\paperheight,fill=black,minimum width={\paperwidth},inner ysep=0.01\paperheight,opacity=0,text opacity=1] at (current page.north) {%
+          \begin{minipage}{0.9\paperwidth}
+            \@makemainlogo
+          \end{minipage}};
+      \end{tikzpicture}
+    }
+  
+  
+    \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+      \fill[\@covercolor] (0.05\paperwidth,\paperheight) rectangle (0.432\paperwidth,0.98\paperheight);
+      \node[above=0.382\paperheight,fill=black,minimum width={\paperwidth},inner ysep=0.05\paperwidth,opacity=0.382,text opacity=1] at (current page.south) {%
+        \begin{minipage}{0.9\paperwidth}
+          \color{\@covercolor}
+          {\fontsize{60}{60}\selectfont\bfseries\sffamily\@title} \\[0.5ex] 
+          \ifdefvoid{\@subtitle}{}{\fontsize{22}{22}\selectfont\@subtitle \\[2.5ex]}
+          \ifdefvoid{\@subject}{}{\fontsize{22}{22}\selectfont\@subject \\[0.5ex]}
+          {\fontsize{24}{24}\selectfont\color{white}\@firstauthor \hspace{1pt} \textit{et al.}}
+        \end{minipage}};
+      %
+      \node[below=0.618\paperheight,fill=black,minimum width={\paperwidth},inner ysep=0.0\paperwidth,opacity=0.382,text opacity=1] at (current page.north) {%
+        \begin{minipage}{0.9\paperwidth}
+          \color{\@covercolor}
+          {\rule{0.618\paperwidth}{2pt}} \\[0.5ex]
+        \end{minipage}};
+      %
+      \node[above right=0.01\paperheight and 0.05\paperwidth] at (current page.south west) {%
+        {\normalsize\color{black}{Copyright \hspace{1pt} \copyright \hspace{1pt} \the\year \hspace{1pt} \@firstauthor \hspace{1pt} \textit{et al.}. All Rights Reserved.}}};
+    \end{tikzpicture}
+    %
+    \nopagecolor%
+    \addtocounter{page}{-1}%
+    %
+    \newpage
+    \thispagestyle{empty}
+    % \phantom{opera}
+    \addtocounter{page}{-1}
+  \end{titlepage}
+  
+  
+  \setcounter{footnote}{0}%
+  \setcounter{page}{0}
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+  }
+\else
+  \def\maketitle{%
+    \par
+    \begingroup
+      \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+      \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+      \long\def\@makefntext##1{\parindent 1em\noindent
+        \hb@xt@1.8em{%
+          \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+      \if@twocolumn
+        \ifnum \col@number=\@ne
+          \@maketitle
+        \else
+          \twocolumn[\@maketitle]%
+        \fi
+      \else
+        \newpage
+        \global\@topnum\z@   % Prevents figures from going at top of page.
+        \@maketitle
+      \fi
+      \thispagestyle{plain}\@thanks
+    \endgroup
+    \setcounter{footnote}{0}%
+    \global\let\thanks\relax
+    \global\let\maketitle\relax
+    \global\let\@maketitle\relax
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\title\relax
+    \global\let\author\relax
+    \global\let\date\relax
+    \global\let\and\relax
+  }
+  \def\@maketitle{%
+    \newpage
+    \null
+    \vskip 2em%
+    \begin{center}%
+      \let \footnote \thanks
+      {\LARGE \@title \par}%
+      \vskip 1.5em%
+      {\large
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+      \vskip 1em%
+      {\large \@date}%
+    \end{center}%
+    \par
+    \vskip 1.5em
+  }
+\fi
+
+\newcommand{\backcover}{%
+\clearpage%
+% Subtract one page so LastPage seems to refer to our intended last page.
+\addtocounter{page}{-1}%
+\thispagestyle{backcover}
+
+\begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+  \node[above right= 0.1\paperheight and 0.00\paperheight,fill=black,minimum width={\paperwidth},inner xsep=0pt,inner ysep=0pt,opacity=0,text opacity=1] at (current page.south west) {%
+      \noindent\pgfsetfillopacity{0}\colorbox{blue}{%
+        \pgfsetfillopacity{1}
+        \begin{minipage}[t][0.1425\paperheight][c]{0.92\paperwidth}
+          {\@contact}
+        \end{minipage}
+      }
+    };
+  %
+  \fill[\@covercolor] (0,0.1\paperheight) rectangle (0.02\paperheight,0.25\paperheight);
+\end{tikzpicture}
+}
+
+\ifxetex
+% Main section titles are flushlefted.
+\def\CTEX@section@format{\Large\bfseries}
+\else
+% The abstract is preceded by a 12-pt bold centered heading
+\def\abstract{%
+	\begin{center}%
+		{\large\bf \abstractname\vspace{-.5em}\vspace{\z@}}%
+	\end{center}}
+\def\endabstract{}
+% Main section titles are 12-pt bold.  Others can be same or smaller.
+\def\section{\@startsection {section}{1}{\z@}{-3.5ex plus-1ex minus
+    -.2ex}{2.3ex plus.2ex}{\reset@font\large\bf}}
+\fi
+
+% hopefully embeds all fonts in pdf
+\ifxetex % xelatex
+  \RequirePackage{xltxtra,fontspec,xunicode}
+  
+  % Set English Fonts
+  \setmainfont{ITC Berkeley Oldstyle Pro}
+  % \setmainfont{Times New Roman}
+  \setsansfont{Helvetica}  % Windows 下可使用类似的 Arial 字体
+  \setmonofont{LettrGoth12 BT}
+  % \setmonofont{Courier New}
+  
+  % \usepackage[default]{sourceserifpro}
+  % \usepackage{sourcesanspro}
+  % \usepackage{sourcecodepro}
+\else % pdflatex
+  \RequirePackage[T1]{fontenc}
+  \RequirePackage[utf8]{inputenc}
+  % Set Font Type
+  \RequirePackage{pslatex}
+\fi

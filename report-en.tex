@@ -1,0 +1,48 @@
+% \documentclass[10pt,twoside]{report}
+\documentclass[10pt,twoside]{ctexrep}
+% \documentclass[10pt,twoside,openright]{report}
+% \documentclass[10pt,twoside,openright]{ctexrep}
+
+\usepackage{./stylib/report}
+
+\rinput{contents/info.tex}
+
+\begin{document}
+
+\hypertarget{titlepage}{}% set the hypertarget
+\bookmark[dest=titlepage,level=chapter]{Title Page}% add the bookmark
+\maketitle
+
+\currfilepath\par
+\currfiledir\par
+\cfDir\par
+
+\rinput{contents/sponsors.tex}
+
+\pagenumbering{roman}
+{%
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{1}
+\hypertarget{toc}{}% set the hypertarget
+\bookmark[dest=toc,level=chapter]{\contentsname}% add the bookmark
+\tableofcontents}
+\clearpage
+
+\rinput{contents/abouteditor.tex}
+
+\rinput{contents/aboutcontributors.tex}
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\rinput{contents/example/en.tex}
+
+%-------------------------------------------------------------------------------
+\bibliographystyle{plain}
+\rbibliography{bib/reference}
+% \bibliography{\rpath{bib/reference}}
+\addcontentsline{toc}{chapter}{\bibname}
+
+\backcover
+
+\end{document}
