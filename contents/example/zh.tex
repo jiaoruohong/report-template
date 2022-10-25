@@ -30,7 +30,7 @@ Now we're going to cite somebody. Watch for the cite tag. Here it comes. Arpachi
 
 The tilde character (\~{}) in the tex source means a non-breaking space. This way, your reference will always be attached to the word that preceded it, instead of going to the next line.\par
 
-And the `cite' package sorts your citations by their numerical order of the corresponding references at the end of the paper, ridding you from the need to notice that, e.g, ``Waldspurger'' appears after ``Arpachi-Dusseau'' when sorting references alphabetically~\cite{waldspurger02,arpachiDusseau18:osbook}.\par 
+And the `cite' package sorts your citations by their numerical order of the corresponding references at the end of the paper, ridding you from the need to notice that, e.g, ``Waldspurger'' appears after ``Arpachi-Dusseau'' when sorting references alphabetically~\cite{waldspurger02,arpachiDusseau18:osbook}.\par
 
 It'd be nice and thoughtful of you to include a suitable link in each and every bibtex entry that you use in your submission, to allow reviewers (and other readers) to easily get to the cited work, as is done in all entries found in the References section of this document.\par
 
@@ -42,18 +42,19 @@ Now we're going take a look at Section~\ref{sec:figs}, but not before observing 
 %-------------------------------------------------------------------------------
 
 \begin{figure}
-\begin{center}
-\begin{tikzpicture}
-  \draw[thin,gray!40] (-2,-2) grid (2,2);
-  \draw[<->] (-2,0)--(2,0) node[right]{$x$};
-  \draw[<->] (0,-2)--(0,2) node[above]{$y$};
-  \draw[line width=2pt,blue,-stealth](0,0)--(1,1)
-    node[anchor=south west]{$\boldsymbol{u}$};
-  \draw[line width=2pt,red,-stealth](0,0)--(-1,-1)
-    node[anchor=north east]{$\boldsymbol{-u}$};
-\end{tikzpicture}
-\end{center}
-\caption{\label{fig:vectors} Text size inside figure should be as big as caption's text. Text size inside figure should be as big as caption's text. Text size inside figure should be as big as caption's text. Text size inside figure should be as big as caption's text. Text size inside figure should be as big as caption's text. }
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[thin,gray!40] (-2,-2) grid (2,2);
+            \draw[<->] (-2,0)--(2,0) node[right]{$x$};
+            \draw[<->] (0,-2)--(0,2) node[above]{$y$};
+            \draw[line width=2pt,blue,-stealth](0,0)--(1,1)
+            node[anchor=south west]{$\boldsymbol{u}$};
+            \draw[line width=2pt,red,-stealth](0,0)--(-1,-1)
+            node[anchor=north east]{$\boldsymbol{-u}$};
+        \end{tikzpicture}
+    \end{center}
+    \caption{ Text size inside figure should be as big as caption's text. Text size inside figure should be as big as caption's text. Text size inside figure should be as big as caption's text. Text size inside figure should be as big as caption's text. Text size inside figure should be as big as caption's text. }
+    \label{fig:vectors}
 \end{figure}
 
 Here's a typical reference to a floating figure: Figure~\ref{fig:vectors}. Floats should usually be placed where latex wants then. Figure\ref{fig:vectors} is centered, and has a caption that instructs you to make sure that the size of the text within the figures that you use is as big as (or bigger than) the size of the text in the caption of the figures. Please do. Really.\par
@@ -63,10 +64,10 @@ In our case, we've explicitly drawn the figure inlined in latex, to allow this t
 Lists are sometimes quite handy. If you want to itemize things, feel free:\par
 
 \begin{description}
-  
-\item[fread] a function that reads from a \texttt{stream} into the array \texttt{ptr} at most \texttt{nobj} objects of size \texttt{size}, returning returns the number of objects read.
 
-\item[Fred] a person's name, e.g., there once was a dude named Fred who separated usenix.sty from this file to allow for easy inclusion.
+    \item[fread] a function that reads from a \texttt{stream} into the array \texttt{ptr} at most \texttt{nobj} objects of size \texttt{size}, returning returns the number of objects read.
+
+    \item[Fred] a person's name, e.g., there once was a dude named Fred who separated usenix.sty from this file to allow for easy inclusion.
 \end{description}
 
 \noindent
@@ -77,6 +78,9 @@ The noindent at the start of this paragraph in its tex version makes it clear th
 %-----------------------------------
 
 People often use \texttt{pdflatex} these days for creating pdf-s from tex files via the shell. And \texttt{bibtex}, of course. Works for us.\par
+
+\section{test odd}
+\zhlipsum[9-13]
 
 %-------------------------------------------------------------------------------
 \section*{Acknowledgments}
@@ -90,16 +94,150 @@ The USENIX latex style is old and very tired, which is why there's no \textbacks
 
 USENIX program committees give extra points to submissions that are backed by artifacts that are publicly available. If you made your code or data available, it's worth mentioning this fact in a dedicated section.\par
 
-\chapter{chapter B: long chapter title name\\ with line break}
+\chapter[chapter B: manage long chap name]{chapter B: long chapter title name for text, toc and header}
+\chaptermark{chap. B's version for header}
 \zhlipsum[8-12]
 
 \section{System Overview}
 \zhlipsum[9-13]
 
-\section{Design and Implementation}
-\zhlipsum[11-15]
+\chapter{Latex Commands Examples}
 
-\begin{appendices}
+\begin{itemize}
+    \item[$\bullet$] \lipsum[1]
+    \item[$\bullet$] \lipsum[2]
+\end{itemize}
+%
+\begin{mdframed}
+    \lipsum[1]
+\end{mdframed}
+%
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+    \caption[]{caption infomation.}
+    \label{table:example}
+    \centering
+    \begin{mdframed}[userdefinedwidth=0.8\textwidth,align=center]
+        \begin{adjustbox}{width=1.0\textwidth}
+            \begin{tabular}{@{}ccccccc@{}}
+                \toprule
+                \textbf{System} & \textbf{Nodes} & \textbf{IPC} & \textbf{ROS-IF} & \textbf{ROS-N} & \textbf{SITL} & \textbf{Lic.} \\ \midrule
+                PX4             & yes            & yes          & yes             & yes            & ROS           & BSD           \\
+                OpenPilot       & yes            & yes          & no              & no             & no            & GPL           \\
+                APM             & no             & no           & yes             & no             & yes           & GPL           \\
+                PPZ             & no             & no           & yes             & no             & yes           & GPL           \\
+                MultiWii        & no             & no           & yes             & no             & no            & GPL           \\ \bottomrule
+            \end{tabular}
+        \end{adjustbox}
+    \end{mdframed}
+\end{table}
+
+
+\begin{figure}[!htbp]
+    \begin{mdframed}
+        \centering
+        \includegraphics[width=0.4\textwidth]{./assets/img/background/colosseum_architecture_building_147889_2780x2780.jpg}
+        \caption{caption infomation.}
+        \label{fig:example1}
+    \end{mdframed}
+\end{figure}
+% %
+% \begin{figure}[!htbp]
+% \begin{mdframed}[userdefinedwidth=0.4\textwidth,align=center]
+% \centering
+% \includegraphics[width=0.4\textwidth]{./assets/img/background/colosseum_architecture_building_147889_2780x2780.jpg}
+% \caption{caption infomation.}
+% \label{fig:example2}
+% \end{mdframed}
+% \end{figure}
+%
+\begin{figure}[!htbp]
+    \centering
+    \begin{mdframed}[userdefinedwidth=0.4\textwidth,align=center]
+        \centering
+        \includegraphics[width=1.0\textwidth]{./assets/img/background/colosseum_architecture_building_147889_2780x2780.jpg}
+    \end{mdframed}
+    \caption{caption infomation.}
+    \label{fig:example3}
+\end{figure}
+%
+\begin{figure}[!htbp]
+    \begin{mdframed}[userdefinedwidth=0.4\textwidth,align=center]
+        \centering
+        \includegraphics[width=1\textwidth]{./assets/img/background/colosseum_architecture_building_147889_2780x2780.jpg}
+        \caption{caption infomation.}
+        \label{fig:example4}
+    \end{mdframed}
+\end{figure}
+
+\mdfdefinestyle{mdfexample1}{leftmargin=1cm,rightmargin=2cm,%
+    innerleftmargin=1cm,innerrightmargin=1cm,roundcorner=10pt}
+\begin{mdframed}[style=mdfexample1]
+    In any right triangle, the area of the square whose side is the hypotenuse
+    is equal to the sum of the areas of the squares whose sides are the two
+    legs.
+\end{mdframed}
+
+\begin{mdframed}[backgroundcolor=gray!40,shadow=true,roundcorner=8pt]
+    In any right triangle, the area of the square whose side is the hypotenuse
+    is equal to the sum of the areas of the squares whose sides are the two
+    legs.
+\end{mdframed}
+
+\newrobustcmd\ExampleText{%
+    An  inhomogeneous linear  differential equation has the form
+    \begin{align}
+        L[v ] = f,
+    \end{align}
+    where $L$ is a linear differential operator, $v$ is the dependent
+    variable, and $f$ is a given non−zero function of the independent
+    variables alone.
+}
+
+\mdfdefinestyle{exampledefault}{%
+    linecolor=red,linewidth=3pt,%
+    leftmargin=1cm,rightmargin=1cm
+}
+\begin{mdframed}[style=exampledefault]
+    \ExampleText
+\end{mdframed}
+
+\mdfapptodefinestyle{exampledefault}{%
+    topline=false,bottomline=false}
+\begin{mdframed}[style=exampledefault,frametitle={Inhomogeneous linear}]
+    \ExampleText
+\end{mdframed}
+
+\mdfapptodefinestyle{exampledefault}{%
+    rightline=true,innerleftmargin=10,innerrightmargin=10,
+    frametitlerule=true,frametitlerulecolor=green,
+    frametitlebackgroundcolor=yellow,
+    frametitlerulewidth=2pt}
+\begin{mdframed}[style=exampledefault,frametitle={Inhomogeneous linear}]
+    \ExampleText
+\end{mdframed}
+
+\begin{mdframed}[userdefinedwidth=6cm,align=center,
+        linecolor=blue,linewidth=4pt]
+    \includegraphics[width=\linewidth]{./assets/img/background/colosseum_architecture_building_147889_2780x2780.jpg}
+\end{mdframed}
+
+\mdfdefinestyle{theoremstyle}{%
+    linecolor=red,linewidth=2pt,%
+    frametitlerule=true,%
+    frametitlebackgroundcolor=gray!20,
+    innertopmargin=\topskip}
+\mdtheorem[style=theoremstyle]{definition}{Definition}
+\begin{definition}
+    \ExampleText
+\end{definition}
+\begin{definition}[Inhomogeneous linear]
+    \ExampleText
+\end{definition}
+
+\appendix
+% \begin{appendices}
 \chapter{chapter C}
 \zhlipsum[13]
 
@@ -107,7 +245,8 @@ USENIX program committees give extra points to submissions that are backed by ar
 \zhlipsum[14-15]
 
 \section{Codes}
-\begin{lstlisting}[language=Python]
+\begin{mdframed}
+    \begin{lstlisting}[language=Python]
 import numpy as np
     
 def incmatrix(genl1,genl2):
@@ -138,8 +277,9 @@ def incmatrix(genl1,genl2):
     
     return M
 \end{lstlisting}
+\end{mdframed}
 
 \rinput{../color-palette.tex}
 % \input{\rpath{../color-palette.tex}}
 
-\end{appendices}
+% \end{appendices}

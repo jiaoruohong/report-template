@@ -41,6 +41,7 @@
 	footskip=1.0cm,
 	includehead=true,
 	includefoot=true]{geometry}
+\RequirePackage{xstring}
 
 \RequirePackage{fancyhdr,lastpage}
 
@@ -58,19 +59,75 @@
   \renewcommand{\footrulewidth}{0pt}
 }
 %
+\fancypagestyle{toc}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyhead[LE]{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[above,yshift=-3.5pt] at (-2em,0) {\bf\sffamily\thepage};
+    \end{tikzpicture}%
+    {\sffamily\contentsname}%
+    % %
+    % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    %   \node[above left=0.01\paperheight and 0.10\paperwidth] at (current page.south east) {%
+    %     {\normalsize\color{black}{Copyright \hspace{1pt} \copyright \hspace{1pt} \the\year \hspace{1pt} \@firstauthor \hspace{1pt}  et al. . All Rights Reserved.}}};
+    % \end{tikzpicture}
+  }
+  \fancyhead[RO]{%
+    {\sffamily\contentsname}%
+    \begin{tikzpicture}[remember picture, overlay]
+      \node[above,yshift=-3.5pt] at (2em,0) {\bf\sffamily\thepage};
+    \end{tikzpicture}%
+    % %
+    % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    %   \node[above right=0.01\paperheight and 0.10\paperwidth] at (current page.south west) {%
+    %     {\normalsize\color{black}{Copyright \hspace{1pt} \copyright \hspace{1pt} \the\year \hspace{1pt} \@firstauthor \hspace{1pt}  et al. . All Rights Reserved.}}};
+    % \end{tikzpicture}
+  }
+}
+%
 \fancypagestyle{chapterpage}{%
   \fancyhf{}
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
   \fancyfoot[LE]{%
-    \begin{tikzpicture}[remember picture, overlay]
-      \node[above,yshift=-3.5pt] at (-2em,0) {\bf\sffamily\thepage};
-    \end{tikzpicture}%
+    \begin{tikzpicture}[remember picture, overlay, shift={(current page.north west)}]
+      \node[above] at (1cm,-1.5cm) {\mdseries\sffamily\large\thepage};
+      \node[rectangle,%
+        above right,
+        draw = \@titlecolor,
+        text = white,
+        fill = \@titlecolor,
+        minimum width = 2cm, 
+        minimum height = 1cm,
+        rotate=-90] (r) at (0cm,-0.2\paperheight) {%
+        \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
+    \end{tikzpicture}
+    %
+    % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    %   \node[above left=0.01\paperheight and 0.10\paperwidth] at (current page.south east) {%
+    %     {\normalsize\color{black}{Copyright \hspace{1pt} \copyright \hspace{1pt} \the\year \hspace{1pt} \@firstauthor \hspace{1pt}  et al. . All Rights Reserved.}}};
+    % \end{tikzpicture}
   }
   \fancyfoot[RO]{%
-    \begin{tikzpicture}[remember picture, overlay]
-      \node[above,yshift=-3.5pt] at (2em,0) {\bf\sffamily\thepage};
-    \end{tikzpicture}%
+    \begin{tikzpicture}[remember picture, overlay, shift={(current page.north east)}]
+      \node[above] at (-1cm,-1.5cm) {\mdseries\sffamily\large\thepage};
+      \node[rectangle,%
+        below right,
+        draw = \@titlecolor,
+        text = white,
+        fill = \@titlecolor,
+        minimum width = 2cm, 
+        minimum height = 1cm,
+        rotate=-90] (r) at (0cm,-0.2\paperheight) {%
+        \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
+    \end{tikzpicture}
+    %
+    % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    %   \node[above right=0.01\paperheight and 0.10\paperwidth] at (current page.south west) {%
+    %     {\normalsize\color{black}{Copyright \hspace{1pt} \copyright \hspace{1pt} \the\year \hspace{1pt} \@firstauthor \hspace{1pt}  et al. . All Rights Reserved.}}};
+    % \end{tikzpicture}
   }
 }
 %
@@ -79,24 +136,54 @@
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
   \fancyhead[LE]{%
-    \begin{tikzpicture}[remember picture, overlay]
-      \node[above,yshift=-3.5pt] at (-2em,0) {\bf\sffamily\thepage};
-    \end{tikzpicture}%
+    \begin{tikzpicture}[remember picture, overlay, shift={(current page.north west)}]
+      \node[above] at (1cm,-1.5cm) {\mdseries\sffamily\large\thepage};
+      \node[rectangle,%
+        above right,
+        draw = \@backgroundcolor,
+        text = \@sectioncolor,
+        fill = \@backgroundcolor,
+        minimum width = 2cm, 
+        minimum height = 1cm,
+        rotate=-90] (r) at (0cm,-0.2\paperheight) {%
+        \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
+    \end{tikzpicture}
     {\sffamily\rightmark}%
+    %
+    % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    %   \node[above left=0.01\paperheight and 0.10\paperwidth] at (current page.south east) {%
+    %     {\normalsize\color{black}{Copyright \hspace{1pt} \copyright \hspace{1pt} \the\year \hspace{1pt} \@firstauthor \hspace{1pt}  et al. . All Rights Reserved.}}};
+    % \end{tikzpicture}
   }
   \fancyhead[RO]{%
     {\sffamily\leftmark}%
-    \begin{tikzpicture}[remember picture, overlay]
-      \node[above,yshift=-3.5pt] at (2em,0) {\bf\sffamily\thepage};
-    \end{tikzpicture}%
+    \begin{tikzpicture}[remember picture, overlay, shift={(current page.north east)}]
+      \node[above] at (-1cm,-1.5cm) {\mdseries\sffamily\large\thepage};
+      \node[rectangle,%
+        below right,
+        draw = \@backgroundcolor,
+        text = \@sectioncolor,
+        fill = \@backgroundcolor,
+        minimum width = 2cm, 
+        minimum height = 1cm,
+        rotate=-90] (r) at (0cm,-0.2\paperheight) {%
+        \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
+    \end{tikzpicture}
+    %
+    % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
+    %   \node[above right=0.01\paperheight and 0.10\paperwidth] at (current page.south west) {%
+    %     {\normalsize\color{black}{Copyright \hspace{1pt} \copyright \hspace{1pt} \the\year \hspace{1pt} \@firstauthor \hspace{1pt}  et al. . All Rights Reserved.}}};
+    % \end{tikzpicture}
   }
 }
 
 \pagestyle{textpage}
 
-\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}{}}
-
+% Running Headers
+\renewcommand{\chaptermark}[1]{\markboth{\mdseries\sffamily\color{\@titlecolor}#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\mdseries\sffamily\color{\@titlecolor}#1}{}}
+% \renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+% \renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}{}}
 
 \RequirePackage[explicit]{titlesec}
 \RequirePackage{titletoc,tocloft}
@@ -104,7 +191,7 @@
 
 \titleformat{name=\subsection}
 {%format
-  \sf\sffamily\large% 
+  \mdseries\sffamily\large\color{\@sectioncolor}% 
 }
 {%label
   \thesubsection
@@ -118,44 +205,69 @@
 [%after-code
 ]
 
+\titleformat{name=\section}
+{%format
+  \bfseries\sffamily\Large\color{\@sectioncolor}% 
+}
+{%label
+  \thesection
+}
+{%sep
+1em
+}
+{%before-code
+#1
+}
+[%after-code
+]
+
 \assignpagestyle{\chapter}{chapterpage}
 \titleformat{name=\chapter}[display]
 {%format
-\bfseries\sffamily% 
-% \bfseries% \Huge\filleft
+  \sffamily
+% \bfseries\sffamily%
 }
 {%label
   \ifthenelse{\isodd{\thepage}}{\filleft}{\filright}
-  \ifthenelse{\isodd{\thepage}}{%
-    \rotatebox[origin=c]{90}{%
-      \normalfont\color{black}\Large%
-      \ifxetex
-        {\addfontfeature{LetterSpace=20.0}\textsc\chaptertitlename}%
-      \else
-        \textls[120]{\textsc{\chaptertitlename}}%
-      \fi
-    }\hspace{10pt}%
-  }{}
-  {\setlength\fboxsep{0pt}%
-    \colorbox{\@chapterlabelcolor}{%
-      \parbox[c][0.1\paperheight][c]{0.1\paperwidth}{%
-        \centering\color{white}
-        \fontsize{40}{40}\selectfont
-        \thechapter
-      }%
-    }
+  {
+    % \setlength\fboxsep{0pt}%
+    % \centering
+    \color{\@chapterlabelcolor}
+    \fontsize{50}{50}
+    \selectfont
+    \thechapter
   }%
-  \ifthenelse{\isodd{\thepage}}{}{%
-    \hspace{10pt}%
-    \rotatebox[origin=c]{-90}{%
-      \normalfont\color{black}\Large%
-      \ifxetex
-        {\addfontfeature{LetterSpace=20.0}\textsc\chaptertitlename}%
-      \else
-        \textls[120]{\textsc{\chaptertitlename}}%
-      \fi
-    }
-  }
+  %
+  % \ifthenelse{\isodd{\thepage}}{%
+  %   \rotatebox[origin=c]{90}{%
+  %     \normalfont\color{black}\Large%
+  %     \ifxetex
+  %       {\addfontfeature{LetterSpace=20.0}\textsc\chaptertitlename}%
+  %     \else
+  %       \textls[120]{\textsc{\chaptertitlename}}%
+  %     \fi
+  %   }\hspace{10pt}%
+  % }{}
+  % {\setlength\fboxsep{0pt}%
+  %   \colorbox{\@chapterlabelcolor}{%
+  %     \parbox[c][0.1\paperheight][c]{0.1\paperwidth}{%
+  %       \centering\color{white}
+  %       \fontsize{40}{40}\selectfont
+  %       \thechapter
+  %     }%
+  %   }
+  % }%
+  % \ifthenelse{\isodd{\thepage}}{}{%
+  %   \hspace{10pt}%
+  %   \rotatebox[origin=c]{-90}{%
+  %     \normalfont\color{black}\Large%
+  %     \ifxetex
+  %       {\addfontfeature{LetterSpace=20.0}\textsc\chaptertitlename}%
+  %     \else
+  %       \textls[120]{\textsc{\chaptertitlename}}%
+  %     \fi
+  %   }
+  % }
 }
 {%sep
 0pt
@@ -163,9 +275,11 @@
 {%before-code
 }
 [%after-code
-  \filright
-  {\color{\@titlecolor}\Huge #1}\\
-  {\color{\@chapterlabelcolor}\rule{0.618\textwidth}{2pt}}
+  % \filright
+  \ifthenelse{\isodd{\thepage}}{\filleft}{\filright}
+  {\bfseries\rmfamily\color{\@titlecolor}\fontsize{30}{30}\selectfont #1}
+  % {\bfseries\rmfamily\color{\@titlecolor}\Huge #1}
+  % {\color{\@chapterlabelcolor}\rule{0.618\textwidth}{2pt}}
 ]
 %
 \titlespacing{name=\chapter}{0pt}{0\paperheight}{20pt}
@@ -173,6 +287,7 @@
 \newcommand{\existchinese}[1]{%
 \ifbool{#1}{%
   \renewcommand{\contentsname}{\bfseries\sffamily {目 \quad 录}}
+
   \ctexset{%
     punct=quanjiao,
     space=auto,
@@ -193,7 +308,8 @@
       number=\thesection,
     },
     appendix={%
-      name={\appendixname\space},
+      name={附录\space},
+      % name={\appendixname\space},
       number=\Alph{chapter},
     }
   }
@@ -250,7 +366,11 @@
 
 
 \definecolor{main-color}{HTML}{f9b70e}
-\definecolor{title-color}{HTML}{cf211e}
+\definecolor{cover-color}{HTML}{f9b70e}
+\definecolor{title-color}{HTML}{734200}
+\definecolor{sec-color}{HTML}{9b7337}
+\definecolor{label-color}{HTML}{979797}
+\definecolor{bg-color}{HTML}{f4eadf}
 
 \newbool{fullcoverpage}
 \boolfalse{fullcoverpage}
@@ -317,14 +437,20 @@
 }
 \newcommand{\contact}[1]{\renewcommand{\@contact}{#1}}
 
-\newcommand{\@covercolor}{main-color}
+\newcommand{\@covercolor}{cover-color}
 \newcommand{\covercolor}[1]{\renewcommand{\@covercolor}{#1}}
 
-\newcommand{\@chapterlabelcolor}{main-color}
+\newcommand{\@chapterlabelcolor}{label-color}
 \newcommand{\chapterlabelcolor}[1]{\renewcommand{\@chapterlabelcolor}{#1}}
 
 \newcommand{\@titlecolor}{title-color}
 \newcommand{\titlecolor}[1]{\renewcommand{\@titlecolor}{#1}}
+
+\newcommand{\@sectioncolor}{sec-color}
+\newcommand{\sectioncolor}[1]{\renewcommand{\@sectioncolor}{#1}}
+
+\newcommand{\@backgroundcolor}{bg-color}
+\newcommand{\backgroundcolor}[1]{\renewcommand{\@backgroundcolor}{#1}}
 
 \newcommand{\sponsorbiography}[3][0.055\paperheight]{%
   {\raggedright
@@ -375,7 +501,7 @@
     \ifcsempty{@sponsors}{}{%
       \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
         \node[below=0.85\paperheight,fill=black,minimum width={\paperwidth},inner ysep=0.01\paperheight,opacity=0,text opacity=1] at (current page.north) {
-          \begin{minipage}{0.9\paperwidth}
+          \begin{minipage}{0.8\paperwidth}
             \@makesponsors
           \end{minipage}};
       \end{tikzpicture}
@@ -384,7 +510,7 @@
     \ifcsempty{@mainlogo}{}{%
       \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
         \node[below=0.15\paperheight,fill=black,minimum width={\paperwidth},inner ysep=0.01\paperheight,opacity=0,text opacity=1] at (current page.north) {%
-          \begin{minipage}{0.9\paperwidth}
+          \begin{minipage}{0.8\paperwidth}
             \@makemainlogo
           \end{minipage}};
       \end{tikzpicture}
@@ -394,21 +520,21 @@
     \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
       \fill[\@covercolor] (0.05\paperwidth,\paperheight) rectangle (0.432\paperwidth,0.98\paperheight);
       \node[above=0.382\paperheight,fill=black,minimum width={\paperwidth},inner ysep=0.05\paperwidth,opacity=0.382,text opacity=1] at (current page.south) {%
-        \begin{minipage}{0.9\paperwidth}
+        \begin{minipage}{0.8\paperwidth}
           \color{\@covercolor}
           {\fontsize{60}{60}\selectfont\bfseries\sffamily\@title} \\[0.5ex] 
           \ifdefvoid{\@subtitle}{}{\fontsize{22}{22}\selectfont\@subtitle \\[2.5ex]}
           \ifdefvoid{\@subject}{}{\fontsize{22}{22}\selectfont\@subject \\[0.5ex]}
-          {\fontsize{24}{24}\selectfont\color{white}\@firstauthor \hspace{1pt} \textit{et al.}}
+          {\fontsize{24}{24}\selectfont\color{white}\@author }
         \end{minipage}};
       %
       \node[below=0.618\paperheight,fill=black,minimum width={\paperwidth},inner ysep=0.0\paperwidth,opacity=0.382,text opacity=1] at (current page.north) {%
-        \begin{minipage}{0.9\paperwidth}
+        \begin{minipage}{0.8\paperwidth}
           \color{\@covercolor}
           {\rule{0.618\paperwidth}{2pt}} \\[0.5ex]
         \end{minipage}};
       %
-      \node[above right=0.01\paperheight and 0.05\paperwidth] at (current page.south west) {%
+      \node[above right=0.01\paperheight and 0.10\paperwidth] at (current page.south west) {%
         {\normalsize\color{black}{Copyright \hspace{1pt} \copyright \hspace{1pt} \the\year \hspace{1pt} \@firstauthor \hspace{1pt} \textit{et al.}. All Rights Reserved.}}};
     \end{tikzpicture}
     %
