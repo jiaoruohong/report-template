@@ -94,15 +94,16 @@
   \fancyfoot[LE]{%
     \begin{tikzpicture}[remember picture, overlay, shift={(current page.north west)}]
       \node[above] at (1cm,-1.5cm) {\mdseries\sffamily\large\thepage};
-      \node[rectangle,%
-        above right,
-        draw = \@titlecolor,
-        text = white,
-        fill = \@titlecolor,
-        minimum width = 2cm, 
-        minimum height = 1cm,
-        rotate=-90] (r) at (0cm,-0.2\paperheight) {%
-        \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
+      % \node[rectangle,%
+      %   above right,
+      %   draw = \@titlecolor,
+      %   text = white,
+      %   fill = \@titlecolor,
+      %   minimum width = 2cm, 
+      %   minimum height = 1cm,
+      %   rotate=-90] (r) at (0cm,-0.2\paperheight) {%
+      %   \bf\sffamily\large \thesection};
+      %   % \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
     \end{tikzpicture}
     %
     % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
@@ -113,15 +114,16 @@
   \fancyfoot[RO]{%
     \begin{tikzpicture}[remember picture, overlay, shift={(current page.north east)}]
       \node[above] at (-1cm,-1.5cm) {\mdseries\sffamily\large\thepage};
-      \node[rectangle,%
-        below right,
-        draw = \@titlecolor,
-        text = white,
-        fill = \@titlecolor,
-        minimum width = 2cm, 
-        minimum height = 1cm,
-        rotate=-90] (r) at (0cm,-0.2\paperheight) {%
-        \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
+      % \node[rectangle,%
+      %   below right,
+      %   draw = \@titlecolor,
+      %   text = white,
+      %   fill = \@titlecolor,
+      %   minimum width = 2cm, 
+      %   minimum height = 1cm,
+      %   rotate=-90] (r) at (0cm,-0.2\paperheight) {%
+      %   \bf\sffamily\large \thesection};
+      %   % \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
     \end{tikzpicture}
     %
     % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
@@ -138,15 +140,16 @@
   \fancyhead[LE]{%
     \begin{tikzpicture}[remember picture, overlay, shift={(current page.north west)}]
       \node[above] at (1cm,-1.5cm) {\mdseries\sffamily\large\thepage};
-      \node[rectangle,%
-        above right,
-        draw = \@backgroundcolor,
-        text = \@sectioncolor,
-        fill = \@backgroundcolor,
-        minimum width = 2cm, 
-        minimum height = 1cm,
-        rotate=-90] (r) at (0cm,-0.2\paperheight) {%
-        \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
+      % \node[rectangle,%
+      %   above right,
+      %   draw = \@backgroundcolor,
+      %   text = \@sectioncolor,
+      %   fill = \@backgroundcolor,
+      %   minimum width = 2cm, 
+      %   minimum height = 1cm,
+      %   rotate=-90] (r) at (0cm,-0.2\paperheight) {%
+      %   \bf\sffamily\large \thesection};
+      %   % \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
     \end{tikzpicture}
     {\sffamily\rightmark}%
     %
@@ -159,15 +162,16 @@
     {\sffamily\leftmark}%
     \begin{tikzpicture}[remember picture, overlay, shift={(current page.north east)}]
       \node[above] at (-1cm,-1.5cm) {\mdseries\sffamily\large\thepage};
-      \node[rectangle,%
-        below right,
-        draw = \@backgroundcolor,
-        text = \@sectioncolor,
-        fill = \@backgroundcolor,
-        minimum width = 2cm, 
-        minimum height = 1cm,
-        rotate=-90] (r) at (0cm,-0.2\paperheight) {%
-        \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
+      % \node[rectangle,%
+      %   below right,
+      %   draw = \@backgroundcolor,
+      %   text = \@sectioncolor,
+      %   fill = \@backgroundcolor,
+      %   minimum width = 2cm, 
+      %   minimum height = 1cm,
+      %   rotate=-90] (r) at (0cm,-0.2\paperheight) {%
+      %   \bf\sffamily\large \thesection};
+      %   % \bf\sffamily\large\chaptername\ \thechapter\ \textbar\ \thesection};
     \end{tikzpicture}
     %
     % \begin{tikzpicture}[remember picture, overlay, shift={(current page.south west)}]
@@ -325,7 +329,10 @@
   \setCJKsansfont{FZYouHJ VF WT W H 1}
   \setCJKmonofont{FZFangSong-Z02S}
   
-  % \setCJKfamilyfont{boldsong}{FZShuSong-Z01S}
+  % \RequirePackage[default]{sourceserifpro}
+  % \RequirePackage{sourcesanspro}
+  % \RequirePackage{sourcecodepro}
+
   % \setCJKmainfont{Source Han Serif CN}
   % \setCJKsansfont{Source Han Sans SC}
   % \setCJKmonofont{Source Han Sans SC}
@@ -477,10 +484,20 @@
     \end{minipage}}}
 }
 
-\renewcommand{\contentsname}{\bfseries\sffamily {Contents}}
-\renewcommand{\bibname}{\bfseries\sffamily {References}}
+\renewcommand{\contentsname}{Contents}
+\renewcommand{\cfttoctitlefont}{%
+  \bfseries\rmfamily\color{\@titlecolor}\fontsize{30}{30}\selectfont
+}
+\renewcommand{\cftaftertoctitle}{\thispagestyle{textpage}}
+%
+\renewcommand{\bibname}{References}
+%
 \newcommand{\hrefcolor}[1]{\hypersetup{linkcolor=#1}\color{#1}}
 \renewcommand{\cftchapfont}{\hrefcolor{\@titlecolor}\large\bfseries\sffamily}
+\renewcommand{\cftsecfont}{\hrefcolor{black}\normalsize\mdseries\sffamily}
+% \renewcommand{\cftsecfont}{\hrefcolor{\@sectioncolor}\normalsize\mdseries\sffamily}
+\renewcommand{\cftsubsecfont}{\hrefcolor{black}\normalsize\sffamily}
+% \renewcommand{\cftsubsecfont}{\hrefcolor{\@sectioncolor}\normalsize\sffamily}
 
 \if@titlepage
   \def\maketitle{%
@@ -662,13 +679,14 @@
   \setsansfont{Helvetica}  % Windows 下可使用类似的 Arial 字体
   \setmonofont{LettrGoth12 BT}
   % \setmonofont{Courier New}
-  
-  % \usepackage[default]{sourceserifpro}
-  % \usepackage{sourcesanspro}
-  % \usepackage{sourcecodepro}
+
 \else % pdflatex
   \RequirePackage[T1]{fontenc}
   \RequirePackage[utf8]{inputenc}
   % Set Font Type
   \RequirePackage{pslatex}
+
+  % \RequirePackage[default]{sourceserifpro}
+  % \RequirePackage{sourcesanspro}
+  % \RequirePackage{sourcecodepro}
 \fi

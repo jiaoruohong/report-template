@@ -1,8 +1,6 @@
 \PassOptionsToPackage{table}{xcolor}
 \documentclass[10pt,twoside]{report}
-% \documentclass[10pt,twoside]{ctexrep}
 % \documentclass[10pt,twoside,openright]{report}
-% \documentclass[10pt,twoside,openright]{ctexrep}
 
 \usepackage{./stylib/report}
 
@@ -13,17 +11,22 @@
 %-------------------------------------------------------------------------------
 \begin{document}
 
-\hypertarget{titlepage}{}% set the hypertarget
-\bookmark[dest=titlepage,level=chapter]{Title Page}% add the bookmark
+\hypertarget{frontcover}{}% set the hypertarget
+\bookmark[dest=frontcover,level=chapter]{Front Cover}% add the bookmark
 \maketitle
 
 %-------------------------------------------------------------------------------
 \pagenumbering{roman}{%
+  % \rinput{contents/sponsors.tex}
+  % \rinput{contents/abouteditor.tex}
+  % \rinput{contents/aboutcontributors.tex}
+  %
   \hypersetup{linkcolor=black}
   \setcounter{tocdepth}{1}
   \hypertarget{toc}{}% set the hypertarget
   \bookmark[dest=toc,level=chapter]{\contentsname}% add the bookmark
-  \tableofcontents}
+  \tableofcontents
+}
 \clearpage
 
 %-------------------------------------------------------------------------------
